@@ -1,5 +1,5 @@
 public abstract class Player {
-    
+    protected Graph<Board> grafo = new Graph<Board>();
     protected int[] tentativa = new int[2];
     protected int jogador;
     
@@ -18,6 +18,9 @@ public abstract class Player {
         else {
             return false;
         }
-            
+    }
+
+    public void carregarTabuleiro(Board tabuleiro) {
+        this.grafo = tabuleiro.espaco_busca(this.grafo,tabuleiro,true);
     }
 }

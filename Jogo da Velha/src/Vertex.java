@@ -1,14 +1,28 @@
 import java.util.ArrayList;
-
 public class Vertex<T> {
     private T dado;
-    private ArrayList<Edge<T>> arestasEntrada;
-    private ArrayList<Edge<T>> arestasSaida;
+    private ArrayList<Vertex<T>> vertAdj;
+    private boolean marcado;
 
     public Vertex(T valor) {
         this.dado = valor;
-        this.arestasEntrada = new ArrayList<Edge<T>>();
-        this.arestasSaida = new ArrayList<Edge<T>>();
+        this.vertAdj = new ArrayList<Vertex<T>>();
+    }
+
+    public ArrayList<Vertex<T>> getVertAdj() {
+        return this.vertAdj;
+    }
+
+    public void setVertAdj(ArrayList<Vertex<T>> vertAdj) {
+        this.vertAdj = vertAdj;
+    }
+
+    public boolean isMarcado() {
+        return this.marcado;
+    }
+
+    public void setMarcado(boolean marcado) {
+        this.marcado = marcado;
     }
 
     public T getDado(){
@@ -19,27 +33,8 @@ public class Vertex<T> {
         this.dado = valor;
     }
 
-    public void addArestaEntrada(Edge<T> aresta) {
-        this.arestasEntrada.add(aresta);
+    public void addAjascente(Vertex<T> adj) {
+        this.vertAdj.add(adj);
     }
-
-    public void addArestaSaida(Edge<T> aresta) {
-        this.arestasSaida.add(aresta);
-    }
-
-    public ArrayList<Edge<T>> getArestasEntrada() {
-        return this.arestasEntrada;
-    }
-
-    public void setArestasEntrada(ArrayList<Edge<T>> arestasEntrada) {
-        this.arestasEntrada = arestasEntrada;
-    }
-
-    public ArrayList<Edge<T>> getArestasSaida() {
-        return this.arestasSaida;
-    }
-
-    public void setArestasSaida(ArrayList<Edge<T>> arestasSaida) {
-        this.arestasSaida = arestasSaida;
-    }
+    
 }

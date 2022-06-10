@@ -1,9 +1,28 @@
+import java.util.ArrayList;
+
 public class Board {
 
     private int[][] tabuleiro;
+    private int pontuacao; //pontuação da possivel jogada da ia
 
     public Board() {
         this.tabuleiro = new int[3][3];
+    }
+
+    public int[][] getMatriz() {
+        return this.tabuleiro;
+    }
+
+    public void setMatriz(int[][] mat) {
+        this.tabuleiro = mat;
+    }
+
+    public int getPontuacao() {
+        return this.pontuacao;
+    }
+
+    public void setPontuacao(int score) {
+        this.pontuacao = score;
     }
 
     public void zerarTabuleiro() {
@@ -36,7 +55,7 @@ public class Board {
     }
 
     public int getPosicao(int[] tentativa) {
-        return tabuleiro[tentativa[0]][tentativa[1]];
+        return this.tabuleiro[tentativa[0]][tentativa[1]];
     }
     
     public void setPosicao(int[] tentativa, int jogador) {
@@ -94,6 +113,62 @@ public class Board {
             }
         }
         return true;
+    }
+
+    public int ChecarVitoria() {
+        if(this.checarLinhas() == 1) return 1;
+        if(this.checarColunas() == 1) return 1;
+        if(this.checarDiagonais() == 1) return 1;
+        
+        if(this.checarLinhas() == -1) return -1;
+        if(this.checarColunas() == -1) return -1;
+        if(this.checarDiagonais() == -1) return -1;
+        
+        return 0;
+    }
+
+    public Graph<Board> espaco_busca(Graph<Board> grafo, Board board, boolean jogador) {
+        grafo.addVertice(board);
+        board.setPontuacao(board.ChecarVitoria());
+        if(board.tabuleiroCompleto() && board.getPontuacao()==0) {
+            board.setPontuacao(2);
+        }
+        // board.exibirTabuleiro();
+        if(!board.tabuleiroCompleto()) {
+            ArrayList<Board> espaco = board.exp(board, jogador);
+            for(Board x : espaco) {
+                espaco_busca(grafo, x, !jogador);
+                grafo.addAresta(board, x);
+            }
+        }
+        return grafo;
+    }
+    
+    public ArrayList<Board> exp(Board board, boolean jogador) {
+        int[][] m = board.getMatriz();
+        ArrayList<Board> espaco = new ArrayList<Board>();
+        for(int i = 0; i<m.length; i++) {
+            for(int j=0; j<m[0].length; j++) {
+                if(m[i][j] == 0) {
+                    Board auxBoard = new Board();
+                    int aux[][] = board.copy(m);
+                    aux[i][j] = (jogador ? 1 : -1);
+                    auxBoard.setMatriz(aux);
+                    espaco.add(auxBoard);
+                }
+            }
+        }
+        return espaco;
+    }
+
+    public int[][] copy(int m[][]) {
+        int aux[][] = new int[m.length][m[0].length];
+        for(int i=0; i<aux.length; i++) {
+            for(int j=0; j<aux[0].length; j++) {
+                aux[i][j] = m[i][j];
+            }
+        }
+        return aux;
     }
 
 }
