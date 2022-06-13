@@ -24,6 +24,10 @@ public class LarguraPlayer extends Player{
                 carregarTabuleiro(tabuleiro);
                 BFS<Board> buscaEmp = new BFS<Board>(2,this.grafo.getRaiz(),this.grafo); //buscar empate
                 tentativa = buscaEmp.buscar();
+                if(!checarTentativa(tentativa,tabuleiro)) {
+                	System.out.println("Jogada Aleatória!");
+                	tentativa = JogadaAleatoria();
+                }
             }
         }
         while(!checarTentativa(tentativa, tabuleiro));

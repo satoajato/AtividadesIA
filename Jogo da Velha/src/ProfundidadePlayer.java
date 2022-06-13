@@ -18,15 +18,20 @@ public class ProfundidadePlayer extends Player{
         System.out.println("Buscando jogada...");
         do{
             carregarTabuleiro(tabuleiro);
-            DFS<Board> buscaVit2 = new DFS<Board>(1,this.grafo.getRaiz(),this.grafo); //buscar vitória
-            tentativa = buscaVit2.buscar();
+            DFS<Board> buscaVit = new DFS<Board>(1,this.grafo.getRaiz(),this.grafo); //buscar vitória
+            tentativa = buscaVit.buscar();
             if(!checarTentativa(tentativa, tabuleiro)) {
                 carregarTabuleiro(tabuleiro);
                 DFS<Board> buscaEmp = new DFS<Board>(2,this.grafo.getRaiz(),this.grafo); //buscar empate
                 tentativa = buscaEmp.buscar(); 
+                if(!checarTentativa(tentativa,tabuleiro)) {
+                	System.out.println("Jogada Aleatória!");
+                	tentativa = JogadaAleatoria();
+                }
             }
         }
         while(!checarTentativa(tentativa, tabuleiro));
+        
         int linha = this.tentativa[0] + 1;
         int coluna = this.tentativa[1] + 1;
         System.out.println("Linha: " + linha + "\nColuna:  " + coluna);

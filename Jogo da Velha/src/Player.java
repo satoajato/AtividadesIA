@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public abstract class Player {
     protected Graph<Board> grafo = new Graph<Board>();
     protected int[] tentativa = new int[2];
@@ -22,5 +24,15 @@ public abstract class Player {
 
     public void carregarTabuleiro(Board tabuleiro) {
         this.grafo = tabuleiro.espaco_busca(this.grafo,tabuleiro,true);
+    }
+    
+    public int[] JogadaAleatoria() {
+    	int[] jogadaR = new int[2];
+    	Random rand = new Random();
+    	
+    	jogadaR[0] = rand.nextInt(3);
+    	jogadaR[1] = rand.nextInt(3);
+    	
+    	return jogadaR;
     }
 }

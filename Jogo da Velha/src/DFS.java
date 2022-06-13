@@ -25,7 +25,7 @@ public class DFS<T> extends Search {
                 this.vertBusca = valor;
                 this.jogada = getJogada();
                 this.grafo.setDesmarcado();
-                break;
+                return this.jogada;
             }
         }
         return jogada;
