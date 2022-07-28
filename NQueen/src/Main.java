@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) throws Exception {
-        int number = 4;
+        int number = 6;
         int alg = 1;
         for(int i = 0; i<args.length; i++) {
             if(args[i].equals("-H")) {

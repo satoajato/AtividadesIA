@@ -14,7 +14,7 @@ public class NQueen {
     public void solucao(int alg) {
         switch (alg) {
             case 1:
-                System.out.println("--- Algoritmo Subida de Encosta para resolver problema das 8 rainhas ---:");
+                System.out.println("--- Algoritmo Subida de Encosta para resolver problema das N-rainhas ---:");
                 this.tabuleiro.setPontuacao(mh.metaHeuristica(this.tabuleiro, this.rainhas));
                 this.tabuleiro.printarTabuleiro();
                 HillClimbing(this.tabuleiro);
