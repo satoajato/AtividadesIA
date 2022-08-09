@@ -106,11 +106,43 @@ public class Puzzle {
         //      return atuais.getSolucao()
         //  Atuais = S.getMelhores()
         ArrayList<Board> atuais = new ArrayList<>();
+        ArrayList<Board> bestNodes = new ArrayList<>();
         for(int i=0; i<K; i++) {
-            atuais.add(new Board(tam));
+            Board inicial = new Board(tam);
+            MetaH mh = new MetaH(inicial);
+            while(inicial.getPontuacao() == 0) {
+                inicial = new Board(tam);
+                inicial.setPontuacao(mh.metaHeuristica(inicial, tam));
+                System.out.println((Integer)i+1);
+                inicial.printarTabuleiro();
+            }
+            atuais.add(inicial);
+            bestNodes.add(inicial);
         }
         while(true) {
-            
+            ArrayList<Board> atuaisAux = new ArrayList<>();
+            for (Board tabuleiro : bestNodes) {
+                if(tabuleiro.getPontuacao()==0) {
+                    return tabuleiro;
+                }
+                if(bestNodes.indexOf(tabuleiro)>K) {
+                    if(tabuleiro.equals(bestNodes.get(bestNodes.indexOf(tabuleiro)-K))) {
+                        MetaH mh = new MetaH(tabuleiro);
+                        Board tabAux = mh.getRandAdj(tabuleiro);
+                        tabuleiro.setMatriz(tabAux.getMatriz());
+                    }
+                }
+            }
+            for (Board tabuleiro : atuais) {
+                MetaH mh = new MetaH(tabuleiro);
+                Board melhor = mh.getMinAdj(tabuleiro);
+                atuaisAux.add(melhor);
+                bestNodes.add(melhor);
+
+                System.out.println((Integer)atuais.indexOf(melhor)+1);
+                melhor.printarTabuleiro();
+            }
+            atuais = new ArrayList<>(atuaisAux);
         }
     }
 

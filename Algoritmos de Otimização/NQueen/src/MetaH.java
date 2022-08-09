@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MetaH {
 
@@ -170,7 +171,7 @@ public class MetaH {
         return aux;
     }
 
-    public Board getMinAdj(Board b, int N) {
+    public Board getMinAdj(Board b) {
         Board minimo = b;
 
         for (Board board : this.listaExp) {
@@ -181,5 +182,13 @@ public class MetaH {
         }
 
         return minimo;
+    }
+
+    public Board getRandAdj(Board b) {
+        Board random = b;
+        Random rand = new Random();
+        random = this.listaExp.get(rand.nextInt(0, this.listaExp.size()));
+        
+        return random;
     }
 }

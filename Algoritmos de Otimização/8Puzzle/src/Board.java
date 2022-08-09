@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Board {
 
@@ -57,7 +58,7 @@ public class Board {
             System.out.println();
         }
         System.out.println("Distancia: " + this.pontuacao + "\n");
-        //new Scanner(System.in).nextLine();
+        new Scanner(System.in).nextLine();
     }
 
     public int[][] getMatriz() {
